@@ -17,11 +17,6 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public String localize(String unlocalized, Object... args) {
-		return I18n.format(unlocalized, args);
-	}
-
-	@Override
 	public void registerRenderers() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPedestal.class, new TESRPedestal());
 	}

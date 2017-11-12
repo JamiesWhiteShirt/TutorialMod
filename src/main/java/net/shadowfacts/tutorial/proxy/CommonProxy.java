@@ -9,10 +9,6 @@ public class CommonProxy {
 
 	}
 
-	public String localize(String unlocalized, Object... args) {
-		return I18n.translateToLocalFormatted(unlocalized, args);
-	}
-
 	public void registerRenderers() {
 	}
 
