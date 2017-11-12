@@ -20,7 +20,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.shadowfacts.tutorial.block.ModBlocks;
 import net.shadowfacts.tutorial.client.TutorialTab;
 import net.shadowfacts.tutorial.item.ModItems;
-import net.shadowfacts.tutorial.network.PacketRequestUpdatePedestal;
 import net.shadowfacts.tutorial.network.PacketUpdatePedestal;
 import net.shadowfacts.tutorial.proxy.CommonProxy;
 import net.shadowfacts.tutorial.recipe.ModRecipes;
@@ -53,7 +52,6 @@ public class TutorialMod {
 
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(modId);
 		network.registerMessage(new PacketUpdatePedestal.Handler(), PacketUpdatePedestal.class, 0, Side.CLIENT);
-		network.registerMessage(new PacketRequestUpdatePedestal.Handler(), PacketRequestUpdatePedestal.class, 1, Side.SERVER);
 	}
 
 	@Mod.EventHandler

@@ -1,6 +1,8 @@
 package net.shadowfacts.tutorial.block.pedestal;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -9,7 +11,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.shadowfacts.tutorial.TutorialMod;
-import net.shadowfacts.tutorial.network.PacketRequestUpdatePedestal;
 import net.shadowfacts.tutorial.network.PacketUpdatePedestal;
 
 import javax.annotation.Nullable;
@@ -34,10 +35,18 @@ public class TileEntityPedestal extends TileEntity {
 	}
 
 	@Override
-	public void onLoad() {
-		if (world.isRemote) {
-			TutorialMod.network.sendToServer(new PacketRequestUpdatePedestal(this));
-		}
+	public NBTTagCompound getUpdateTag() {
+	    return writeToNBT(new NBTTagCompound());
+	}
+
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+	    return new SPacketUpdateTileEntity(pos, 0, getUpdateTag());
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+	    readFromNBT(pkt.getNbtCompound());
 	}
 
 	@Override
